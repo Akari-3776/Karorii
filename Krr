@@ -1,0 +1,97 @@
+<!DOCTYPE html><html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>カロリー管理</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"><style>
+body {
+  font-family: sans-serif;
+  background: linear-gradient(180deg, #ffeef5, #e6f7ff);
+  text-align: center;
+  margin: 0;
+}
+
+h1 {
+  margin: 20px 0;
+}
+
+.card {
+  background: white;
+  margin: 10px;
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+
+input {
+  width: 80%;
+  padding: 10px;
+  margin: 8px;
+  font-size: 16px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+}
+
+button {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 30px;
+  font-size: 16px;
+  background: #ff9ecf;
+  color: white;
+  margin-top: 10px;
+}
+
+.result {
+  font-size: 20px;
+  margin-top: 10px;
+}
+
+.remaining {
+  font-size: 26px;
+  font-weight: bold;
+  color: #ff6fa5;
+}
+</style></head>
+<body><h1>🍽 今日のカロリー</h1><div class="card">
+  <div>朝</div>
+  <input type="number" id="breakfast" placeholder="kcal">  <div>昼</div>
+  <input type="number" id="lunch" placeholder="kcal">  <div>夜</div>
+  <input type="number" id="dinner" placeholder="kcal">  <div>間食</div>
+  <input type="number" id="snack" placeholder="kcal"><button onclick="calculate()">計算</button>
+
+  <div class="result">
+    合計：<span id="total">0</span> kcal
+  </div>  <div class="remaining">
+    残り：<span id="remaining">1300</span> kcal
+  </div>  <div class="result" id="message"></div>
+</div><script>
+const goal = 1300;
+
+function getValue(id) {
+  return Number(document.getElementById(id).value) || 0;
+}
+
+function calculate() {
+  const total =
+    getValue("breakfast") +
+    getValue("lunch") +
+    getValue("dinner") +
+    getValue("snack");
+
+  const remaining = goal - total;
+
+  document.getElementById("total").textContent = total;
+  document.getElementById("remaining").textContent = remaining;
+
+  const message = document.getElementById("message");
+
+  if (remaining > 300) {
+    message.textContent = "まだ余裕あるよ◎";
+  } else if (remaining > 0) {
+    message.textContent = "あと少し気をつけよう";
+  } else {
+    message.textContent = "オーバー！明日で調整しよう";
+  }
+}
+</script></body>
+</html>
